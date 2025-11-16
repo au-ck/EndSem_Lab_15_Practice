@@ -1,0 +1,2 @@
+spring.application.name=participant-backend
+server.port=1006

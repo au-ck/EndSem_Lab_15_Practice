@@ -1,0 +1,5 @@
+package com.newpractice.vol.repository;
+
+public interface ParticipantRepository {
+
+}

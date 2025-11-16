@@ -1,0 +1,15 @@
+package com.newpractice.vol;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class ParticipantBackendApplication extends SpringBootServletInitializer{
+
+	public static void main(String[] args){
+		SpringApplication.run(ParticipantBackendApplication.class, args);
+		System.out.println("Hey hlo...")
+	}
+
+}

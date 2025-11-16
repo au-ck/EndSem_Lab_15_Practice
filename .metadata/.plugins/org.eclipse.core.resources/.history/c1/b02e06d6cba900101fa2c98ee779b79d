@@ -1,0 +1,5 @@
+package com.newpractice.vol.service;
+
+public interface ParticipantService {
+
+}

@@ -1,0 +1,65 @@
+package com.newpractice.vol.controller;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import com.newpractice.vol.entity.Participant;
+import com.newpractice.vol.service.ParticipantService;
+
+@RestController
+@RequestMapping("/participantapi")
+@CrossOrigin(origins = "*")
+public class ParticipantController {
+
+    @Autowired
+    private ParticipantService participantService;
+
+    @GetMapping("/")
+    public String home() {
+        return "Participant API Running Successfully in NewPractice VOL App!";
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Participant> addParticipant(@RequestBody Participant participant) {
+        Participant saved = participantService.addParticipant(participant);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Participant>> getAllParticipants() {
+        List<Participant> participants = participantService.getAllParticipants();
+        return new ResponseEntity<>(participants, HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getParticipantById(@PathVariable int id) {
+        Participant p = participantService.getParticipantById(id);
+        if (p != null)
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        else
+            return new ResponseEntity<>("Participant with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateParticipant(@RequestBody Participant participant) {
+        Participant existing = participantService.getParticipantById(participant.getId());
+        if (existing != null) {
+            Participant updated = participantService.updateParticipant(participant);
+            return new ResponseEntity<>(updated, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Cannot update. Participant with ID " + participant.getId() + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteParticipant(@PathVariable int id) {
+        Participant existing = participantService.getParticipantById(id);
+        if (existing != null) {
+            participantService.deleteParticipantById(id);
+            return new ResponseEntity<>("Participant with ID " + id + " deleted successfully.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Cannot delete. Participant with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+}

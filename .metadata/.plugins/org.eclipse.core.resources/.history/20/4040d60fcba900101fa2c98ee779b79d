@@ -1,0 +1,5 @@
+package com.newpractice.vol.entity;
+
+public class Participant {
+
+}
